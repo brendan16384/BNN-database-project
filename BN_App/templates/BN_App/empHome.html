@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            float: left;
+        }
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            background-color:#444;
+            padding: 12px;
+            text-decoration: none;
+        }
+        li a:hover {
+            background-color: #222;
+            color: white;
+        }
+        .active {
+            background-color: #050;
+        }
+        .active:hover {
+            background-color: #050;
+        }
+        .dropdown-content {
+            display:none;
+            position:absolute;
+            width:100%;
+            z-index: 2;
+        }
+        .dropdown-content a {
+            display:block;
+            background-color: #777;
+        }
+        .dropdown:hover .dropdown-content {
+            display:block;
+        }
+    </style>
+
+    <title>BNN EMployee Home</title>
+</head>
+<body>
+    <h1><ul>
+        <li><a class="active" href="">Barnes 'N Noble</a></li>
+        <li><div class="dropdown">
+            <a href="../searchLocations">View Locations</a>
+            {% if emp.employee_position == "manager" %}
+                <div class="dropdown-content">
+                    <a href="../deleteLocation">Delete a Location</a>
+                    <a href="../addLocation">Add a Location</a>
+                </div>
+            {% endif %}
+        </div></li>
+        <li><div class="dropdown">
+            <a href="../searchProducts">Search Products</a>
+            <div class="dropdown-content">
+                <a href="../searchBooks">Search Books</a>
+                <a href="../searchGames">Search Games</a>
+                <a href="../searchProductReport">Product Report</a>
+            </div>
+        </div></li>
+        <li><div class="dropdown">
+            <a href="../addProduct">Add Products</a>
+            <div class="dropdown-content">
+                <a href="../addBook">Add Books</a>
+                <a href="../addGame">Add Games</a>
+                <a href="../searchProductEdit">Edit a Product</a>
+                <a href="../deleteProduct">Delete a Product</a>
+            </div>
+        </div></li>
+        <li><a href="../addInventory">Add Inventory</a></li>
+        {% if emp.employee_position == "manager" %}
+            <li><div class="dropdown"><a href="../searchEmployees">View Employees</a>
+            <div class="dropdown-content">
+                <a href="../addEmployee">Add Employees</a>
+                <a href="../searchEmployeeToEdit">Edit Employees</a>
+                <a href="../deleteEmployee">Delete Employees</a>
+            </div>
+        </div></li>
+        {% endif %}
+    </ul></h1>
+
+    <br><br><br><br><br><br>
+    <h2>Customer Checkout</h2>
+    <form action="{% url 'checkout' %}">
+        <label>Current Location's ID: 
+            <textarea name="locID" rows=1></textarea>
+        </label>
+        <br><br>
+        <label>Number of Unique Products: 
+            <textarea name="num" rows=1></textarea>
+        </label>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
